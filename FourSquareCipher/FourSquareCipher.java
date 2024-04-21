@@ -1,6 +1,7 @@
 import java.sql.SQLOutput;
 import java.util.ArrayDeque;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class FourSquareCipher {
 
@@ -9,11 +10,54 @@ public class FourSquareCipher {
     private PSquareKeyed secondSquare;
     private PSquareKeyed thirdSquare;
 
-    public FourSquareCipher(String KeyWord1, String KeyWord2){
+
+
+    public FourSquareCipher(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the first keyword: ");
+        String KeyWord1 = input.next();
+        System.out.println("Enter the second keyword: ");
+        String KeyWord2 = input.next();
         firstSquare = new PSquareNonKeyed();
         secondSquare = new PSquareKeyed(KeyWord1);
         thirdSquare = new PSquareKeyed(KeyWord2);
         fourthSquare = new PSquareNonKeyed();
+    }
+
+    public void run()  {
+        Scanner input = new Scanner(System.in);
+
+        boolean running = true;
+        while (running){
+            System.out.println("Choose a command (1,2,3)");
+            System.out.printf(
+                    """
+                            \n
+                            +--------------------+-------------------+
+                            | Four Square Cipher | Keywords          |
+                            +--------------------+-------------------+
+                            | 1. Encrypt         | 1.%s          |
+                            | 2. Decrypt          | 2.%s        |
+                            | 3. Exit            |                   |
+                            +--------------------+-------------------+    
+                            """,secondSquare.getKeyword() , thirdSquare.getKeyword());
+            int userInput = input.nextInt();
+            switch (userInput){
+                case 1:
+                    System.out.println("What message do you want to encrypt");
+                    String emsg = input.next();
+                    System.out.printf("\nThe encrypted message is: %s \n", this.encrypt(emsg));
+                    break;
+                case 2:
+                    System.out.println("What message do you want to decrypt");
+                    String dmsg = input.next();
+                    System.out.printf("\nThe decrypted message is: %s \n", this.decrypt(dmsg));
+                    break;
+                case 3: running = false;
+                default:
+                    System.out.println("Incorrect input, self destructing"); running = false;
+            }
+        }
     }
 
     public String encrypt(String message){
