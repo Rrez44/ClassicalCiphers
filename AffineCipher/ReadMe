@@ -1,0 +1,33 @@
+Afine Cipher është një substitution cipher monoalfabetik, ku secila shkronjë në alfabet zëvendësohet
+me ekuivalentin e saj numerik, enkriptohet duke përdorur një funksion matematik të thjeshtë, dhe
+pastaj kthehet në një shkronjë. Ky cipher përdor dy funksione matematike (shumëzim dhe mbledhje)
+për të enkriptuar dhe dekriptuar mesazhet. 
+
+Afine Cipher është një substitution cipher, në të cilën çdo shkronjë në plaintext zëvendësohet me
+një shkronjë tjetër nga alfabeti. Për dallim nga disa shifra substitution më të thjeshta, si
+shifra e Cezarit, Afine Cipher-i përdor një funksion matematik për çdo shkronjë. 
+
+Cipher-i Afine bazohet në dy funksione matematike: 
+
+Funksioni i enkriptimit: E(x) = (ax + b) mod m 
+
+Funksioni i dekriptimit: D(x) = a^-1 (x - b) mod m 
+
+Ku:
+x përfaqëson vlerën numerike të një shkronje në alfabet (p.sh., A=0, B=1, C=2, dhe kështu me radhë).  
+a dhe b janë çelësat e cipher-it
+m është madhësia e alfabetit (zakonisht 26). 
+
+Enkriptimi: 
+
+Për të enkriptuar një shkronjë x, aplikojmë funksionin e enkriptimit.
+Shumëzojmë vlerën numerike të shkronjës me çelësin a, shtojmë një tjetër çelës b,
+dhe pastaj marrim rezultatin modulo m për ta mbajtur brenda alfabetit.
+Rezultati na jep vlerën numerike të shkronjës së enkriptuar. 
+
+Dekriptimi: 
+
+Për të dekriptuar një shkronjë të enkriptuar y, ne aplikojmë funksionin e dekriptimit.
+Së pari, zbresim çelësin b nga vlera numerike e shkronjës së enkriptuar, pastaj shumëzojmë
+rezultatin me inversin modular të çelësit a (treguar si a^-1), dhe në fund marrim rezultatin
+modulo m. Kjo na jep vlerën numerike të shkronjës origjinale të plaintext-it. 
