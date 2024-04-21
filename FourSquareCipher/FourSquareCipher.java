@@ -53,7 +53,7 @@ public class FourSquareCipher {
                     String dmsg = input.next();
                     System.out.printf("\nThe decrypted message is: %s \n", this.decrypt(dmsg));
                     break;
-                case 3: running = false;
+                case 3: running = false;break;
                 default:
                     System.out.println("Incorrect input, self destructing"); running = false;
             }
