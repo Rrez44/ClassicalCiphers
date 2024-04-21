@@ -11,6 +11,11 @@ public class PSquareKeyed extends PolybiusSquare{
         this.keyword = createKeyWord(KeyWord.toUpperCase());
         fillSquares();
     }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
     @Override
     public void fillSquares() {
 
