@@ -1,3 +1,27 @@
-You can run this by simply building the source code yourself or running the command
+Enkriptimin four-square e kemi realizuar duke përdorur elementin bazë të këtij
+enkriptimi i cili është një matric 5x5 i mbushur me karaktere.
+Klasa abstrakte Polybius Square implementon strukturen bazë të kësaj matrice ndërsa
+fëmijët e saj dallojnë nga fakti se njëra ka keyword ndërsa tjetra mbushet me karaktere të
+alfabetit duke mos përfshirë "J". PSquareKeyed mbushet njesoj si tek Josse Cipher.
 
-java -jar YOURPATH/FourSquareCipher.jar 
+Procesi i enkriptimit ndodh duke krijuar 4 matrica, 2 per secilin lloj. Matrica 1,4 jan nonKey
+ndersa matrica 2,3 jan keyed.
+
+duke i vendosur në këtë mënyrë
+1 2
+3 4
+
+Mesazhi që dojmë të enkriptojmë duhet të ket gjatësi qift, nëse jo i shtojmë shkronjën X në fund.
+Arsye për këtë është se për enkriptim do të marrim 2 nga 2 shkronja të cilat i kemi vendosur në queue,
+shkronjën e parë e gjejmë në matricën e parë, ndërsa të dytën në matricën e katërt duke iteruar në qdo element
+Koordinatat e kthyera x,y i përdorim kështu
+
+Shkronja e parë e enkriptuar do të jetë në rreshtin e matrices së parë dhe kolonën e matricës së katërt
+Shkronja e dytë e enkriptuar do të jetë në rreshtin e maricës së katërt dhe kolonën e matricës së parë
+
+Enkriptimi është processi revers i kësaj
+
+I gjejmë elementet tek matricat 2 dhe 3
+
+Shkronja e parë e dekriptuar do të jetë në rreshtin e matrices së dytë dhe kolonën e matricës së tretë
+Shkronja e dytë e dekriptuar do të jetë në rreshtin e maricës së tretë dhe kolonën e matricës së dytë
