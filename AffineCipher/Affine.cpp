@@ -1,125 +1,76 @@
-#include <iostream> 
+#include <iostream>
+#include <string>
 
-#include <string> 
+using namespace std;
 
- using namespace std; 
+bool areCoprime(int a, int m) {
+    for (int i = 2; i <= a && i <= m; i++) {
+        if (a % i == 0 && m % i == 0)
+            return false;
+    }
+    return true;
+}
 
-  
+string encrypt(string text, int a, int b) {
+    if (!areCoprime(a, 26)) {
+        cerr << "Error: a and 26 are not coprime. Please choose a different 'a' value.\n";
+        return "";
+    }
 
-int modInverse(int a, int m) { 
+    string ciphertext = "";
 
-    for (int x = 1; x < m; x++) { 
+    for (char& c : text) {
+        if (isalpha(c)) {
+            char offset = isupper(c) ? 'A' : 'a';
+            c = static_cast<char>(((a * (c - offset) + b) % 26) + offset);
+        }
+        ciphertext += c;
+    }
 
-        if (((a % m) * (x % m)) % m == 1) { 
+    return ciphertext;
+}
 
-            return x; 
+string decrypt(string ciphertext, int a, int b) {
+    string plaintext = "";
+    int a_inv = 0;
+    int flag = 0;
 
-        } 
+    for (int i = 0; i < 26; i++) {
+        flag = (a * i) % 26;
+        if (flag == 1) {
+            a_inv = i;
+        }
+    }
 
-    } 
+    for (char& c : ciphertext) {
+        if (isalpha(c)) {
+            char offset = isupper(c) ? 'A' : 'a';
+            c = static_cast<char>(((a_inv * ((c - offset) - b + 26)) % 26) + offset);
+        }
+        plaintext += c;
+    }
 
-    return -1; 
+    return plaintext;
+}
 
-} 
+int main() {
+    string text;
+    int a, b;
 
- char encryptChar(char c, int a, int b) { 
+    cout << "Enter text: ";
+    getline(cin, text);
 
-    if (isalpha(c)) { 
+    cout << "Enter key a (should be coprime with 26): ";
+    cin >> a;
 
-        char base = isupper(c) ? 'A' : 'a'; 
+    cout << "Enter key b: ";
+    cin >> b;
 
-        return (char)((((a * (c - base)) + b) % 26) + base); 
+    string encrypted = encrypt(text, a, b);
+    cout << "Encrypted: " << encrypted << endl;
 
-    } 
+    string decrypted = decrypt(encrypted, a, b);
+    cout << "Decrypted: " << decrypted << endl;
 
-    return c; 
-
-} 
-
- char decryptChar(char c, int a, int b) { 
-
-    if (isalpha(c)) { 
-
-        char base = isupper(c) ? 'A' : 'a'; 
-
-        int inverse = modInverse(a, 26); 
-
-        if (inverse != -1) { 
-
-            return (char)(((inverse * ((c - base) - b + 26)) % 26) + base); 
-
-        } 
-
-    } 
-
-    return c; 
-
-} 
-
- string encrypt(string message, int a, int b) { 
-
-    string encryptedMessage = ""; 
-
-    for (char c : message) { 
-
-        encryptedMessage += encryptChar(c, a, b); 
-
-    } 
-
-    return encryptedMessage; 
-
-} 
-
- string decrypt(string message, int a, int b) { 
-
-    string decryptedMessage = ""; 
-
-    for (char c : message) { 
-
-        decryptedMessage += decryptChar(c, a, b); 
-
-    } 
-
-    return decryptedMessage; 
-
-} 
-
-  
-
-int main() { 
-
-    string message; 
-
-    int keyA, keyB; 
-
-  
-
-    cout << "Enter the message: "; 
-
-    getline(cin, message); 
-
-    cout << "Enter key A: "; 
-
-    cin >> keyA; 
-
-    cout << "Enter key B: "; 
-
-    cin >> keyB; 
-
-  
-
-    string encryptedMessage = encrypt(message, keyA, keyB); 
-
-    cout << "Encrypted message: " << encryptedMessage << endl; 
-
-  
-
-    string decryptedMessage = decrypt(encryptedMessage, keyA, keyB); 
-
-    cout << "Decrypted message: " << decryptedMessage << endl; 
-
-  
-
-    return 0; 
-
-} 
+    return 0;
+}
